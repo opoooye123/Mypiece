@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
             enum: ["user", "vendor", "admin"],
             default: "user"
         },
+        isVendorApproved: {
+            type: Boolean,
+            default: false
+        }
     },
     {timestamps: true}
 )
