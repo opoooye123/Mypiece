@@ -13,8 +13,11 @@ const {getProducts} = require("../controllers/productController")
 const {updateProduct} = require("../controllers/productController")
 
 const {deleteProduct} =  require("../controllers/productController")
+
+const {getVendorProducts} = require("../controllers/productController")
 //venor creates product
 router.get("/", getProducts);
+router.get("/my-products", protect,vendorOnly,getVendorProducts)
 router.post("/",protect,vendorOnly,createProduct);
 router.put("/:id", protect,vendorOnly,updateProduct);
 router.delete("/:id",protect,vendorOnly,deleteProduct)

@@ -124,12 +124,16 @@ const getVendorProducts = async (req,res) => {
         });
 
         res.json(products);
+     }catch(error){
+        res.status(500).json({
+            message: error.message,
+        });
      }
-}
+};
 module.exports = {
     createProduct,
     getProducts,
     updateProduct,
-    deleteProduct
-
+    deleteProduct,
+    getVendorProducts,
 }
