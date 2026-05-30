@@ -34,7 +34,7 @@ const Register = () => {
       JSON.stringify(res.data)
     );
 
-    navigate("/login")
+    navigate("/")
   } catch(error){
     console.log(error.respnse.data)
   }
