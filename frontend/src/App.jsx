@@ -7,6 +7,8 @@ import VendorApply from "./pages/VendorApply";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import { Product } from "./pages/Product";
+import { CreateProduct } from "./pages/CreateProduct";
 
 function App(){
   return(
@@ -17,6 +19,8 @@ function App(){
       <Route path="/login" element={ <PublicRoute ><Login /></PublicRoute>}/>
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>}/>
       <Route path="/apply-vendor" element={<VendorApply />}/>
+      <Route path="/product/:id" element={<Product />}/>
+      <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>}/>
     </Routes>
     </BrowserRouter>
   )

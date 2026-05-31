@@ -1,32 +1,65 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const [products, setProducts] = useState([]);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const user = JSON.parse(localStorage.getItem("userInfo"));
+  useEffect(() => {
+    const fetchVendorProducts = async () => {
+      try {
+        const userInfo = JSON.parse(
+          localStorage.getItem("userInfo")
+        );
 
-  const handleLogout = () => {
-    localStorage.removeItem("userInfo");
-    navigate("/login")
-  }
+        if(!userInfo || userInfo.role !== "vendor"){
+          navigate("/");
+        }
+
+        const { data } = await axios.get(
+          "http://localhost:5000/api/products/my-products",
+          {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+
+
+
+        setProducts(data);
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchVendorProducts();
+  }, []);
+
   return (
-    <>
-     <h1>Dashboard</h1>
+    <div>
+      <h1>Vendor Dashboard</h1>
 
-     <h3>Welcome, {user?.name}</h3>
+      {products.map((product) => (
+        <div key={product._id}>
+          <h3>{product.name}</h3>
 
+          <p>₦{product.price}</p>
 
-     <p>Email: {user?.email}</p>
-     <p>Role: {user?.role}</p>
+          <p>Stock: {product.countInStock}</p>
 
-     <button onClick={handleLogout}>
-      Logout
-     </button>
-    </>
-  )
-}
+          <hr />
+        </div>
+      ))}
 
-export default Dashboard
+      <Link to="/create-product">
+            <button>Create Product</button>
+          </Link>
+    </div>
+  );
+};
+
+export default Dashboard;

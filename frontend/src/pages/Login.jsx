@@ -32,7 +32,11 @@ const Login = () => {
           JSON.stringify(res.data)
         );
 
-        navigate("/dashboard");
+        if(user.role === "vendor"){
+    navigate("/dashboard");
+   }else{
+    navigate("/");
+   }
       }catch (error) {
         console.log(error.response?.data);
       }

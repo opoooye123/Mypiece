@@ -34,8 +34,13 @@ const Register = () => {
       JSON.stringify(res.data)
     );
 
-    navigate("/dashboard")
+   if(user.role === "vendor"){
+    navigate("/dashboard");
+   }else{
+    navigate("/");
+   }
   } catch(error){
+    console.log(error)
     console.log(error.respnse.data)
   }
   }
