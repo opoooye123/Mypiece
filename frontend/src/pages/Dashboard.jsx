@@ -39,6 +39,29 @@ const Dashboard = () => {
     fetchVendorProducts();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      const userInfo = JSON.parse(
+        localStorage.getItem("userInfo")
+      );
+
+      await axios.delete(
+        `http://localhost:5000/api/products/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+
+      setProducts(
+        products.filter((p) => p._id !== id)
+      );
+    }catch(error){
+      console.log(error.response?.data)
+    }
+  }
+
   return (
     <div>
       <h1>Vendor Dashboard</h1>
@@ -50,6 +73,16 @@ const Dashboard = () => {
           <p>₦{product.price}</p>
 
           <p>Stock: {product.countInStock}</p>
+
+          <button onClick={() => handleDelete(product._id)}>
+            Delete
+          </button>
+
+          <button onClick={() => 
+            navigate(`/edit-product/${product._id}`)
+          }>
+            Edit
+          </button>
 
           <hr />
         </div>

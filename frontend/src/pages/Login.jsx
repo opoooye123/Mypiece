@@ -26,7 +26,7 @@ const Login = () => {
           "http://localhost:5000/api/auth/login",
           login
         );
-
+         const user = res.data
         localStorage.setItem(
           "userInfo",
           JSON.stringify(res.data)
@@ -38,6 +38,7 @@ const Login = () => {
     navigate("/");
    }
       }catch (error) {
+        console.log(error)
         console.log(error.response?.data);
       }
     }

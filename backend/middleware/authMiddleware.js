@@ -20,10 +20,13 @@ if(
             process.env.JWT_SECRET
         );
 
+        console.log("Decoded", decoded)
+
         //Get user from database without their password
 
         req.user = await User.findById(decoded.id).select("-password");
 
+        console.log("USer:", req.user);
         next();
     } catch (error) {
         res.status(401).json({
@@ -32,9 +35,9 @@ if(
     }
 }
 
-if(!token) {
-    res.status(401).json({
-        message: "Not authorized. no token",
+if (!token) {
+    return res.status(401).json({
+        message: "Not authorized, no token",
     });
 }
 };

@@ -17,7 +17,7 @@ const app = express();
 const User = require("./models/User");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
-
+const orderRoutes = require("./routes/orderRoutes")
 connectDB()
 
 
@@ -26,6 +26,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
 
 
 app.get("/", (req,res) => {

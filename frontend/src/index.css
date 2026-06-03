@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Add your custom styles here */
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}

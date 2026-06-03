@@ -9,10 +9,14 @@ import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import { Product } from "./pages/Product";
 import { CreateProduct } from "./pages/CreateProduct";
+import { EditProduct } from "./pages/EditProduct";
+import { Navbar } from "./components/Navbar";
+import { Cart } from "./pages/Cart";
 
 function App(){
   return(
     <BrowserRouter>
+    <Navbar />
     <Routes>
       <Route path="/" element={<Home />}/>
       <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
@@ -21,6 +25,8 @@ function App(){
       <Route path="/apply-vendor" element={<VendorApply />}/>
       <Route path="/product/:id" element={<Product />}/>
       <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>}/>
+      <Route path="/edit-product/:id" element={<EditProduct />}/>
+      <Route path="/cart" element={<Cart />}/>
     </Routes>
     </BrowserRouter>
   )
