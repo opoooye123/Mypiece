@@ -12,7 +12,7 @@ const Home = () => {
         const {data} = await axios.get(
           "http://localhost:5000/api/products"
         );
-
+            console.log(data);
         setProducts(data)
       }catch(error){
          console.log(error);
@@ -30,7 +30,18 @@ const Home = () => {
           <Link to={`/product/${product._id}`}>
             <h3>{product.name}</h3>
           </Link>
-
+          
+          {product.image && (
+  <img
+    src={product.image}
+    alt={product.name}
+    style={{
+      width: "150px",
+      height: "150px",
+      objectFit: "cover",
+    }}
+  />
+)}
           <p>{product.description}</p>
 
           <p>{product.price}</p>

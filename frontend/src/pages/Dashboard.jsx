@@ -90,7 +90,13 @@ const Dashboard = () => {
 
       <Link to="/create-product">
             <button>Create Product</button>
-          </Link>
+      </Link>
+
+      <Link to="/vendor-orders">
+        view Orders
+      </Link>
+ 
+   
     </div>
   );
 };

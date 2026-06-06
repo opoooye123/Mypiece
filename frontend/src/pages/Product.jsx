@@ -53,6 +53,11 @@ export const Product = () => {
   return (
     <>
      <h1>{product.name}</h1>
+     <img
+  src={product.image}
+  alt={product.name}
+  style={{ width: "300px", height: "300px", objectFit: "cover" }}
+/>
      <p>{product.description}</p>
      <h3>{product.price}</h3>
      <p>Brand: {product.brand}</p>

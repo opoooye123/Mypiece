@@ -12,6 +12,13 @@ import { CreateProduct } from "./pages/CreateProduct";
 import { EditProduct } from "./pages/EditProduct";
 import { Navbar } from "./components/Navbar";
 import { Cart } from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import MyOrders from "./pages/MyOrders";
+import VendorOrders from "./pages/VendorOrder";
+import AdminRoute from "./components/AdminRoute";
+import AdminUsers from "./pages/AdminUsers";
+
+
 
 function App(){
   return(
@@ -27,6 +34,10 @@ function App(){
       <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>}/>
       <Route path="/edit-product/:id" element={<EditProduct />}/>
       <Route path="/cart" element={<Cart />}/>
+      <Route path="/checkout" element={<PrivateRoute><Checkout/></PrivateRoute>}/>
+      <Route path="/my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>}/>
+      <Route path="/vendor-orders" element={<PrivateRoute><VendorOrders /></PrivateRoute>}/>
+      <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>}/>
     </Routes>
     </BrowserRouter>
   )

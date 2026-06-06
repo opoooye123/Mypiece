@@ -33,7 +33,7 @@ const Register = () => {
       "userInfo",
       JSON.stringify(res.data)
     );
-
+     const user = res.data
    if(user.role === "vendor"){
     navigate("/dashboard");
    }else{
@@ -41,7 +41,7 @@ const Register = () => {
    }
   } catch(error){
     console.log(error)
-    console.log(error.respnse.data)
+    console.log(error.response?.data);
   }
   }
 

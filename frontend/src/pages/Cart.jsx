@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 export const Cart = () => {
   const [cartItems, setCartItems] = useState(
@@ -46,6 +48,10 @@ export const Cart = () => {
           </div>
         ))
       )}
+
+      <Link to="/checkout">
+        <button>Proceed to Checkout</button>
+      </Link>
 
       <h2>Total: ₦{total}</h2>
     </>
