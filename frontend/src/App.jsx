@@ -19,6 +19,7 @@ import AdminRoute from "./components/AdminRoute";
 import AdminUsers from "./pages/AdminUsers";
 import ApplyVendor from "./pages/ApplyVendor";
 import AdminApplications from "./pages/AdminApplication";
+import Admin from "./pages/Admin";
 
 
 
@@ -41,6 +42,7 @@ function App(){
       <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>}/>
       <Route path="/apply-vendor" element={<PrivateRoute><ApplyVendor /></PrivateRoute>}/>
       <Route path="/admin/applications" element={<AdminRoute><AdminApplications /></AdminRoute>}/>
+      <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>}/>
     </Routes>
     </BrowserRouter>
   )

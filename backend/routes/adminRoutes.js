@@ -8,6 +8,7 @@ const admin = require("../middleware/adminMiddleware");
 
 const {
     getUsers,
+    getAdminStats
 } = require("../controllers/adminController");
 
 
@@ -17,6 +18,12 @@ router.get(
     admin,
     getUsers
 );
+router.get(
+    "/stats",
+    protect,
+    admin,
+    getAdminStats
+)
 
 module.exports = router;
 

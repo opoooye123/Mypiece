@@ -18,6 +18,9 @@ const {deleteProduct} =  require("../controllers/productController")
 const {getVendorProducts} = require("../controllers/productController")
 
 const {getProductById} = require("../controllers/productController")
+
+const {createProductReview} = require("../controllers/productController");
+
 //venor creates product
 router.get("/", getProducts);
 router.get("/my-products", protect,vendorOnly,getVendorProducts)
@@ -57,5 +60,11 @@ router.post(
     }
   }
 );
+
+router.post(
+  "/:id/reviews",
+  protect,
+  createProductReview
+)
 
 module.exports = router;
