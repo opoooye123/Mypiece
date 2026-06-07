@@ -17,6 +17,8 @@ import MyOrders from "./pages/MyOrders";
 import VendorOrders from "./pages/VendorOrder";
 import AdminRoute from "./components/AdminRoute";
 import AdminUsers from "./pages/AdminUsers";
+import ApplyVendor from "./pages/ApplyVendor";
+import AdminApplications from "./pages/AdminApplication";
 
 
 
@@ -29,7 +31,6 @@ function App(){
       <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
       <Route path="/login" element={ <PublicRoute ><Login /></PublicRoute>}/>
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>}/>
-      <Route path="/apply-vendor" element={<VendorApply />}/>
       <Route path="/product/:id" element={<Product />}/>
       <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>}/>
       <Route path="/edit-product/:id" element={<EditProduct />}/>
@@ -38,6 +39,8 @@ function App(){
       <Route path="/my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>}/>
       <Route path="/vendor-orders" element={<PrivateRoute><VendorOrders /></PrivateRoute>}/>
       <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>}/>
+      <Route path="/apply-vendor" element={<PrivateRoute><ApplyVendor /></PrivateRoute>}/>
+      <Route path="/admin/applications" element={<AdminRoute><AdminApplications /></AdminRoute>}/>
     </Routes>
     </BrowserRouter>
   )

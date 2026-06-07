@@ -21,6 +21,9 @@ const orderRoutes = require("./routes/orderRoutes");
 const adminRoutes = require(
     "./routes/adminRoutes"
 );
+const vendorApplicationRoutes = require(
+    "./routes/vendorApplicationRoutes"
+)
 connectDB()
 
 
@@ -32,7 +35,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes)
-
+app.use(
+    "/api/vendor-applications",
+    vendorApplicationRoutes
+)
 app.get("/", (req,res) => {
     res.send("API running...");
 })
