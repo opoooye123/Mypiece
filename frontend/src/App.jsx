@@ -3,7 +3,6 @@ import {Routes,BrowserRouter,Route} from "react-router-dom"
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import  Register from "./pages/Register";
-import VendorApply from "./pages/VendorApply";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
@@ -20,6 +19,7 @@ import AdminUsers from "./pages/AdminUsers";
 import ApplyVendor from "./pages/ApplyVendor";
 import AdminApplications from "./pages/AdminApplication";
 import Admin from "./pages/Admin";
+import OrderDetails from "./pages/OrderDetails";
 
 
 
@@ -43,6 +43,7 @@ function App(){
       <Route path="/apply-vendor" element={<PrivateRoute><ApplyVendor /></PrivateRoute>}/>
       <Route path="/admin/applications" element={<AdminRoute><AdminApplications /></AdminRoute>}/>
       <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>}/>
+      <Route path="/order/:id"  element={<OrderDetails />}/>
     </Routes>
     </BrowserRouter>
   )

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -39,37 +40,43 @@ const MyOrders = () => {
       ) : (
         orders.map((order) => (
           <div
-            key={order._id}
-            style={{
-              border: "1px solid #ccc",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
-            <h3>Order ID</h3>
-            <p>{order._id}</p>
+  key={order._id}
+  style={{
+    border: "1px solid #ccc",
+    margin: "10px",
+    padding: "10px",
+  }}
+>
+  <h3>Order ID</h3>
 
-            <p>
-              Total: ₦{order.totalPrice}
-            </p>
+  <p>{order._id}</p>
 
-            <p>
-              Paid:{" "}
-              {order.isPaid ? "Yes" : "No"}
-            </p>
+  <p>
+    Total: ₦{order.totalPrice}
+  </p>
 
-            <p>
-  Status: {order.orderStatus}
-</p>
+  <p>
+    Paid: {order.isPaid ? "Yes" : "No"}
+  </p>
 
-            <p>
-              Date:{" "}
-              {new Date(
-                order.createdAt
-              ).toLocaleDateString()}
-            </p>
+  <p>
+    Status: {order.orderStatus}
+  </p>
 
-          </div>
+  <p>
+    Date:
+    {" "}
+    {new Date(
+      order.createdAt
+    ).toLocaleDateString()}
+  </p>
+
+  <Link to={`/order/${order._id}`}>
+    <button>
+      View Details
+    </button>
+  </Link>
+</div>
         ))
       )}
     </div>

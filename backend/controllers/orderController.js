@@ -139,10 +139,69 @@ const getMyOrders = async (req, res) => {
         }
     }
 
+    const createPaidOrder = async (req, res) => {
+  try {
+    const axios = require("axios");
+
+    const {
+      reference,
+      orderItems,
+      shippingAddress,
+      totalPrice,
+    } = req.body;
+
+    const verification =
+      await axios.get(
+        `https://api.paystack.co/transaction/verify/${reference}`,
+        {
+          headers: {
+            Authorization:
+              `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          },
+        }
+      );
+
+    if (
+      verification.data.data.status !==
+      "success"
+    ) {
+      return res.status(400).json({
+        message:
+          "Payment not successful",
+      });
+    }
+
+    const order =
+      await Order.create({
+        user: req.user._id,
+
+        orderItems,
+
+        shippingAddress,
+
+        totalPrice,
+
+        isPaid: true,
+
+        paidAt: new Date(),
+      });
+
+    res.status(201).json(order);
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
     module.exports = {
         createOrder,
         getMyOrders,
         getOrderById,
         getVendorOrders,
         updateOrderStatus,
+        createPaidOrder
     }

@@ -24,6 +24,8 @@ const adminRoutes = require(
 const vendorApplicationRoutes = require(
     "./routes/vendorApplicationRoutes"
 )
+const paymentRoutes = 
+require("./routes/paymentRoutes");
 connectDB()
 
 
@@ -38,6 +40,10 @@ app.use("/api/admin", adminRoutes)
 app.use(
     "/api/vendor-applications",
     vendorApplicationRoutes
+)
+app.use(
+    "/api/payments",
+    paymentRoutes
 )
 app.get("/", (req,res) => {
     res.send("API running...");

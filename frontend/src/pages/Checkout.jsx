@@ -9,9 +9,7 @@ const Checkout = () => {
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const createOrder = async () => {
     try {
       const cartItems =
         JSON.parse(localStorage.getItem("cart")) || [];
@@ -21,39 +19,45 @@ const Checkout = () => {
       );
 
       const totalPrice = cartItems.reduce(
-        (acc, item) => acc + item.price * item.qty,
+        (acc, item) =>
+          acc + item.price * item.qty,
         0
       );
-
-      console.log(cartItems);
 
       await axios.post(
         "http://localhost:5000/api/orders",
         {
-          orderItems: cartItems.map((item) => ({
-            product: item._id,
-            name: item.name,
-            image: item.image,
-            price: item.price,
-            qty: item.qty,
-          })),
+          orderItems: cartItems.map(
+            (item) => ({
+              product: item._id,
+              name: item.name,
+              image: item.image,
+              price: item.price,
+              qty: item.qty,
+            })
+          ),
+
           shippingAddress: {
             address,
             city,
             phone,
           },
+
           totalPrice,
         },
         {
           headers: {
-            Authorization: `Bearer ${userInfo.token}`,
+            Authorization:
+              `Bearer ${userInfo.token}`,
           },
         }
       );
 
       localStorage.removeItem("cart");
 
-      alert("Order placed successfully!");
+      alert(
+        "Order placed successfully!"
+      );
 
       navigate("/my-orders");
 
@@ -62,22 +66,118 @@ const Checkout = () => {
 
       alert(
         error.response?.data?.message ||
-        "Failed to place order"
+          "Failed to place order"
       );
     }
+  };
+
+  const verifyPayment = async (
+    reference
+  ) => {
+    try {
+      const userInfo = JSON.parse(
+        localStorage.getItem(
+          "userInfo"
+        )
+      );
+
+      const { data } =
+        await axios.get(
+          `http://localhost:5000/api/payments/verify/${reference}`,
+          {
+            headers: {
+              Authorization:
+                `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+
+      if (
+        data.status === "success"
+      ) {
+        await createOrder();
+      } else {
+        alert(
+          "Payment verification failed"
+        );
+      }
+
+    } catch (error) {
+      console.log(error);
+
+      alert(
+        "Payment verification failed"
+      );
+    }
+  };
+
+  const payWithPaystack = async (
+    e
+  ) => {
+    e.preventDefault();
+
+    const cartItems =
+      JSON.parse(
+        localStorage.getItem("cart")
+      ) || [];
+
+    const userInfo = JSON.parse(
+      localStorage.getItem("userInfo")
+    );
+
+    const totalPrice =
+      cartItems.reduce(
+        (acc, item) =>
+          acc +
+          item.price * item.qty,
+        0
+      );
+
+    const handler =
+      window.PaystackPop.setup({
+        key:
+          import.meta.env
+            .VITE_PAYSTACK_PUBLIC_KEY,
+
+        email:
+          userInfo.email,
+
+        amount:
+          totalPrice * 100,
+
+        currency: "NGN",
+
+        callback:
+          function (response) {
+            verifyPayment(
+              response.reference
+            );
+          },
+
+        onClose:
+          function () {
+            alert(
+              "Payment cancelled"
+            );
+          },
+      });
+
+    handler.openIframe();
   };
 
   return (
     <div>
       <h1>Checkout</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           type="text"
           placeholder="Address"
           value={address}
           onChange={(e) =>
-            setAddress(e.target.value)
+            setAddress(
+              e.target.value
+            )
           }
           required
         />
@@ -89,7 +189,9 @@ const Checkout = () => {
           placeholder="City"
           value={city}
           onChange={(e) =>
-            setCity(e.target.value)
+            setCity(
+              e.target.value
+            )
           }
           required
         />
@@ -101,7 +203,9 @@ const Checkout = () => {
           placeholder="Phone"
           value={phone}
           onChange={(e) =>
-            setPhone(e.target.value)
+            setPhone(
+              e.target.value
+            )
           }
           required
         />
@@ -109,8 +213,12 @@ const Checkout = () => {
         <br />
         <br />
 
-        <button type="submit">
-          Place Order
+        <button
+          onClick={
+            payWithPaystack
+          }
+        >
+          Pay Now
         </button>
       </form>
     </div>
